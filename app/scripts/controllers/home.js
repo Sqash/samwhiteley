@@ -10,12 +10,12 @@
 angular.module('samWhiteleyApp')
   .controller('HomeCtrl', function ($scope) {
     $scope.content = [
-      'In Computer Science',
-      'Creativity',
-      'Passion',
-      'a text editor',
-      'a lot of coffee',
-      'and just one good idea',
-      'are all you need to change the world.'
+      'A good day is',
+      '1 revelation',
+      '1 blinking cursor',
+      '1 big cup of coffee',
+      'a heap of good commits',
+      'a code-base to be proud of',
+      'and at least 1 skill improved.'
     ];
   });
