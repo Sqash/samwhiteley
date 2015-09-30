@@ -72,7 +72,7 @@ angular.module('samWhiteleyApp')
         'park your sedan on the side of a mini mountain in a forest. It\'s ' +
         'a ton of fun and I love it!',
         'I\'ve also had some fun volunteering stints with Ottawa Bluesfest, ' +
-        'Mister Leather Ottawa, and probably a bunch of tech and labor ' +
+        'Swirl and Twirl, and probably a bunch of tech and labor ' +
         'endeavours that have slipped my mind.'
       ]
     };
