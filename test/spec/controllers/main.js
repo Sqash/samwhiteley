@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ProjectsCtrl', function () {
+describe('Controller: MainCtrl', function () {
 
   // load the controller's module
   beforeEach(module('samWhiteleyApp'));
 
-  var ProjectsCtrl,
+  var MainCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ProjectsCtrl = $controller('ProjectsCtrl', {
+    MainCtrl = $controller('MainCtrl', {
       $scope: scope
+      // place here mocked dependencies
     });
   }));
 
-  it('should have 3 projects', function () {
-    expect(scope.projects.length).toBe(3);
+  it('should attach a list of awesomeThings to the scope', function () {
+    expect(MainCtrl.awesomeThings.length).toBe(3);
   });
-
 });

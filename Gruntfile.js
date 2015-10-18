@@ -1,4 +1,4 @@
-// Generated on 2015-05-25 using generator-angular 0.11.1
+// Generated on 2015-10-15 using generator-angular 0.12.1
 'use strict';
 
 // # Globbing
@@ -9,11 +9,15 @@
 
 module.exports = function (grunt) {
 
-  // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
-
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
+
+  // Automatically load required Grunt tasks
+  require('jit-grunt')(grunt, {
+    useminPrepare: 'grunt-usemin',
+    ngtemplates: 'grunt-angular-templates',
+    cdnify: 'grunt-google-cdn'
+  });
 
   // Configurable paths for the application
   var appConfig = {
@@ -45,8 +49,8 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{less,css}'],
-        tasks: ['less','newer:copy:styles', 'autoprefixer']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+        tasks: ['newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -57,7 +61,7 @@ module.exports = function (grunt) {
         },
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.{less,css}',
+          '.tmp/styles/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -69,7 +73,6 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost',
-        //hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
@@ -176,19 +179,6 @@ module.exports = function (grunt) {
       }
     },
 
-    postcss: {
-      options: {
-        map: true,
-        processors: [
-          require('autoprefixer-core')({browsers: 'last 1 version'}),
-          require('csswring')
-        ]
-      },
-      all: {
-        src: '<%= yeoman.app %>/styles/*.css'
-      }
-    },
-
     // Automatically inject Bower components into the app
     wiredep: {
       app: {
@@ -248,12 +238,16 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: ['<%= yeoman.dist %>/scripts/{,*/}*.js'],
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>',
           '<%= yeoman.dist %>/images',
           '<%= yeoman.dist %>/styles'
-        ]
+        ],
+        patterns: {
+          js: [[/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']]
+        }
       }
     },
 
@@ -311,15 +305,27 @@ module.exports = function (grunt) {
           collapseWhitespace: true,
           conservativeCollapse: true,
           collapseBooleanAttributes: true,
-          removeCommentsFromCDATA: true,
-          removeOptionalTags: true
+          removeCommentsFromCDATA: true
         },
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html'],
           dest: '<%= yeoman.dist %>'
         }]
+      }
+    },
+
+    ngtemplates: {
+      dist: {
+        options: {
+          module: 'samWhiteleyApp',
+          htmlmin: '<%= htmlmin.dist.options %>',
+          usemin: 'scripts/scripts.js'
+        },
+        cwd: '<%= yeoman.app %>',
+        src: 'views/{,*/}*.html',
+        dest: '.tmp/templateCache.js'
       }
     },
 
@@ -355,7 +361,6 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-            'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
@@ -364,11 +369,6 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
-        }, {
-          expand: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
@@ -400,31 +400,6 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    },
-
-    //non-seed grunt tasks
-
-    less: {
-      dist: {
-        files: [
-          {
-            src: '<%= yeoman.app %>/styles/less/style.less',
-            dest: '<%= yeoman.app %>/styles/style.css'
-          }
-        ]
-      }
-    },
-
-    buildcontrol: {
-      GitHubIO: {
-        options: {
-          dir: 'dist',
-          commit: true,
-          push: true,
-          remote: 'https://github.com/Sqash/sqash.github.io.git',
-          remoteBranch: 'master'
-        }
-      }
     }
   });
 
@@ -436,8 +411,6 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'less',
-      'postcss',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -453,8 +426,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
-    'less',
-    'postcss',
     'wiredep',
     'concurrent:test',
     'autoprefixer',
@@ -464,12 +435,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'less',
-    'postcss',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
+    'ngtemplates',
     'concat',
     'ngAnnotate',
     'copy:dist',
@@ -479,10 +449,6 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin'
-  ]);
-
-  grunt.registerTask('push-dist', [
-    'buildcontrol:GitHubIO'
   ]);
 
   grunt.registerTask('default', [

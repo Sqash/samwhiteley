@@ -11,6 +11,9 @@
 angular
   .module('samWhiteleyApp', [
     'ngAnimate',
+    'ngAria',
+    'ngCookies',
+    'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
@@ -18,24 +21,14 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeCtrl'
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/projects', {
-        templateUrl: 'views/projects.html',
-        controller: 'ProjectsCtrl'
-      })
-      .when('/resume', {
-        templateUrl: 'views/resume.html',
-        controller: 'ResumeCtrl'
-      })
-      .when('/contact', {
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl'
+        controller: 'AboutCtrl',
+        controllerAs: 'about'
       })
       .otherwise({
         redirectTo: '/'
