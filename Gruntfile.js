@@ -50,7 +50,7 @@ module.exports = function (grunt) {
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{css,less}'],
-        tasks: ['less', 'newer:copy:styles', 'postcss']
+        tasks: ['less', 'newer:copy:styles', 'postcss:server']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -165,7 +165,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer')({browsers: ['last 1 version']})
+          require('autoprefixer')({browsers: ['last 2 versions']})
         ]
       },
       server: {
