@@ -49,8 +49,8 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'postcss']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{css,less}'],
+        tasks: ['less', 'newer:copy:styles', 'postcss']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -151,6 +151,14 @@ module.exports = function (grunt) {
         }]
       },
       server: '.tmp'
+    },
+
+    less: {
+      all: {
+        files: {
+          '<%= yeoman.app %>/styles/app.css': '<%= yeoman.app %>/styles/app.less'
+        }
+      }
     },
 
     // Add vendor prefixed styles
@@ -414,6 +422,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'less',
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
@@ -429,6 +438,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'wiredep',
+    'less',
     'concurrent:test',
     'postcss',
     'connect:test',
@@ -439,6 +449,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'less',
     'concurrent:dist',
     'postcss',
     'ngtemplates',
