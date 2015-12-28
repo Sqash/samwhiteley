@@ -5,6 +5,7 @@
     <title>Sam Whiteley</title>
     <meta name="description" content="Personal Website of Sam Whiteley">
     <meta name="viewport" content="width=device-width">
+    <base href="/">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -13,6 +14,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/app.css">
     <!-- endbuild -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
   <body ng-app="samWhiteleyApp">
     <!--[if lte IE 8]>
@@ -21,7 +23,9 @@
 
     <!-- Add your site or application content here -->
     <div class="content">
-      <div ng-include="//NAVBAR_COMPONENT"></div>
+      <div ng-include="'views/nav.html'"></div>
+
+      <i class="fa fa-exclamation-triangle fa-3x"> Under construction</i>
 
       <div ng-view="" autoscroll="true"></div>
     </div>
@@ -42,6 +46,8 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
+        <script src="scripts/controllers/projects.js"></script>
         <!-- endbuild -->
 </body>
 </html>

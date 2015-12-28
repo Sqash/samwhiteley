@@ -25,6 +25,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/projects', {
+        templateUrl: 'views/projects.html',
+        controller: 'ProjectsCtrl',
+        controllerAs: 'projects'
+      })
       .otherwise({
         redirectTo: '/'
       });
