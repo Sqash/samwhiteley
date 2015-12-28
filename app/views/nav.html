@@ -1,0 +1,10 @@
+<nav ng-controller="NavCtrl">
+  <div class="nav-header"></div>
+  <div class="nav-list">
+    <ul>
+      <li ng-repeat="m in menu">
+      <a href="#{{m.link}}" alt="{{m.title}}">{{m.title}}</a>
+      </li>
+    </ul>
+  </div>
+</nav>
